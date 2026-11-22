@@ -1,5 +1,4 @@
 # StudyLog
-#### Video Demo: https://youtu.be/R04hztsDFZs
 #### Description:
 
 StudyLog is a Flask web app for tracking study time, built with Python, SQL, and JavaScript. After registering, you add the subjects you study, log sessions by entering a subject, a number of minutes, a date, and an optional note, and then watch a dashboard that shows how much you've studied this week against a weekly goal you set, a breakdown of that time by subject, your most recent sessions, and your current daily study streak.
