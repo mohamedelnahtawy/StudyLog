@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %} · Subjects{% endblock %}
+{% block main %}
+<h1>Subjects</h1>
+<form method="post" class="inline">
+  <label>New subject <input type="text" name="name" maxlength="40" placeholder="e.g. CS50x" required></label>
+  <button>Add subject</button>
+</form>
+{% for r in rows %}
+  <form method="post" action="/subjects/{{ r.id }}/delete" class="row">
+    <span>{{ r.name }}</span>
+    <span>{{ r.total | hm }} total <button class="link" aria-label="Delete {{ r.name }}">Delete</button></span>
+  </form>
+{% else %}
+  <p class="muted">Add the subjects you study, then start logging sessions.</p>
+{% endfor %}
+{% endblock %}

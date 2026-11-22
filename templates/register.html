@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %} · Create account{% endblock %}
+{% block main %}
+<h1>Create account</h1>
+<form method="post">
+  <label>Username <input type="text" name="username" autocomplete="username" required autofocus></label>
+  <label>Password (8+ characters) <input type="password" name="password" autocomplete="new-password" minlength="8" required></label>
+  <label>Confirm password <input type="password" name="confirmation" autocomplete="new-password" required></label>
+  <button>Create account</button>
+</form>
+<p class="muted">Already registered? <a href="/login">Log in</a>.</p>
+{% endblock %}

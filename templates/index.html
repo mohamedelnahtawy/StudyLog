@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block main %}
+<section class="hero">
+  <p class="big">{{ week_total | hm }}</p>
+  <p>studied this week, {{ percent }}% of your {{ goal | hm }} goal</p>
+  <div class="bar" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100"><span style="width: {{ percent }}%"></span></div>
+  <p class="muted">{% if streak %}{{ streak }}-day streak. Keep it going.{% else %}No streak yet. Log a session today to start one.{% endif %}</p>
+</section>
+
+<section>
+  <h2>This week by subject</h2>
+  {% for row in by_subject %}
+    <div class="row"><span>{{ row.name }}</span><span>{{ row.total | hm }}</span></div>
+    <div class="bar thin"><span style="width: {{ (row.total / week_total * 100) | round }}%"></span></div>
+  {% else %}
+    <p class="muted">Nothing logged this week. <a href="/log">Log your first session</a>.</p>
+  {% endfor %}
+</section>
+
+<section>
+  <h2>Latest sessions</h2>
+  {% for r in recent %}
+    <div class="row"><span>{{ r.day }} &middot; {{ r.name }}{% if r.note %} &mdash; {{ r.note }}{% endif %}</span><span>{{ r.minutes | hm }}</span></div>
+  {% else %}
+    <p class="muted">No sessions yet.</p>
+  {% endfor %}
+</section>
+
+<section>
+  <h2>Weekly goal</h2>
+  <form method="post" action="/goal" class="inline">
+    <label>Hours per week <input type="number" name="hours" step="0.5" min="0.5" max="100" value="{{ (goal / 60) | round(1) }}" required></label>
+    <button>Update goal</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudyLog{% block title %}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">StudyLog</a>
+    {% if session.user_id %}
+    <nav>
+      <a href="/">Dashboard</a>
+      <a href="/log">Log session</a>
+      <a href="/history">History</a>
+      <a href="/subjects">Subjects</a>
+      <a href="/logout">Log out</a>
+    </nav>
+    {% else %}
+    <nav><a href="/login">Log in</a><a href="/register">Register</a></nav>
+    {% endif %}
+  </header>
+  <main>
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <p class="flash {{ category }}" role="status">{{ message }}</p>
+    {% endfor %}
+    {% block main %}{% endblock %}
+  </main>
+</body>
+</html>

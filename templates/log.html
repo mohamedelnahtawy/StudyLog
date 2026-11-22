@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %} · Log session{% endblock %}
+{% block main %}
+<h1>Log a session</h1>
+{% if not subjects %}
+  <p>You need a subject first. <a href="/subjects">Add one</a>.</p>
+{% else %}
+<section class="timer" aria-label="Session timer">
+  <p id="timer-display" class="clock" aria-live="off">00:00:00</p>
+  <div class="inline-buttons">
+    <button type="button" id="timer-toggle">Start timer</button>
+    <button type="button" id="timer-finish" class="secondary" disabled>Finish and fill minutes</button>
+  </div>
+  <p class="muted">Prefer to type it in? Skip the timer and enter minutes below.</p>
+</section>
+
+<form method="post">
+  <label>Subject
+    <select name="subject_id" required>
+      {% for s in subjects %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Minutes <input type="number" id="minutes" name="minutes" min="1" max="1440" required></label>
+  <label>Date <input type="date" name="day" value="{{ today }}" max="{{ today }}" required></label>
+  <label>Note (optional) <input type="text" name="note" maxlength="200"></label>
+  <button>Save session</button>
+</form>
+<script src="{{ url_for('static', filename='timer.js') }}"></script>
+{% endif %}
+{% endblock %}

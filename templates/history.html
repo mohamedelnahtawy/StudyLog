@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %} · History{% endblock %}
+{% block main %}
+<h1>History</h1>
+{% for r in rows %}
+  <form method="post" action="/history/{{ r.id }}/delete" class="row">
+    <span>{{ r.day }} &middot; {{ r.name }}{% if r.note %} &mdash; {{ r.note }}{% endif %}</span>
+    <span>{{ r.minutes | hm }} <button class="link" aria-label="Delete session from {{ r.day }}">Delete</button></span>
+  </form>
+{% else %}
+  <p class="muted">No sessions yet. <a href="/log">Log one</a>.</p>
+{% endfor %}
+{% endblock %}
